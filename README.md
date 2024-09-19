@@ -1,10 +1,10 @@
 # SystemAndSignals
 Python Proposal Kaan Narsap 5716357
 
-This project aims to analyze and visualize global earthquake data using the Geological Survey Data Earthquake. By collecting, processing, and analyzing real-time and historical earthquake data, the project will explore seismic patterns such as earthquake frequency, magnitude distribution, depth variation, and geographical clustering. The outcome will be a set of visualizations that help understand global seismic activity and highlight regions of high seismic risk.
+This project aims to analyze and visualize global earthquake data using the Geological Survey Data. By collecting, processing, and analyzing real-time and historical earthquake data, the project will explore seismic patterns such as earthquake frequency, magnitude distribution, depth variation, and geographical clustering. The outcome will be a set of visualizations that help understand global seismic activity and highlight regions of high seismic risk.
 
 Data Collection:
-  Retrieve earthquake data (magnitude, depth, location, time) from the USGS API for a defined time range (e.g., last 20 years or real-time).
+  Retrieve earthquake data (magnitude, depth, location, time) for a defined time range (e.g., last 20 years or real-time).
 
 Data Analysis:
  Analyze the distribution of earthquake magnitudes and depths.
