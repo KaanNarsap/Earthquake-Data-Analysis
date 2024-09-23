@@ -1,0 +1,119 @@
+import pandas as pd
+import requests
+import matplotlib.pyplot as plt
+import seaborn as sns
+import folium
+from datetime import datetime
+
+# USGS Earthquake API URL
+USGS_API_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query"
+
+# Function to fetch earthquake data from the USGS API
+def fetch_earthquake_data(start_time, end_time, min_magnitude):
+    # Define parameters for the API request
+    params = {
+        'format': 'geojson',  # Data format (GeoJSON)
+        'starttime': start_time,
+        'endtime': end_time,
+        'minmagnitude': min_magnitude,
+        'limit': 20000  # Max records to fetch
+    }
+    
+    # Send the request to the API
+    response = requests.get(USGS_API_URL, params=params)
+    
+    # Check if the request was successful
+    if response.status_code == 200:
+        data = response.json()
+        return data['features']  # Return the earthquake data
+    else:
+        print("Error fetching data:", response.status_code)
+        return None
+
+# Function to preprocess the data into a DataFrame
+def preprocess_earthquake_data(features):
+    # Extract the relevant fields from the JSON response
+    data = []
+    for feature in features:
+        properties = feature['properties']
+        geometry = feature['geometry']
+        if geometry['type'] == 'Point':
+            latitude, longitude, depth = geometry['coordinates']
+            data.append([properties['time'], properties['mag'], properties['place'], 
+                         latitude, longitude, depth])
+    
+    # Create a DataFrame
+    df = pd.DataFrame(data, columns=['time', 'magnitude', 'location', 'longitude', 
+                                     'latitude', 'depth'])
+    
+    # Convert the time to a readable format
+    df['time'] = pd.to_datetime(df['time'], unit='ms')
+    
+    return df
+
+# Function to plot earthquake magnitudes over time
+def plot_magnitude_trend(df):
+    plt.figure(figsize=(10,6))
+    df.groupby(df['time'].dt.year)['magnitude'].mean().plot()
+    plt.title('Average Earthquake Magnitude Over Time')
+    plt.xlabel('Year')
+    plt.ylabel('Average Magnitude')
+    plt.grid(True)
+    plt.show()
+
+# Function to plot earthquake depth vs magnitude
+def plot_depth_vs_magnitude(df):
+    plt.figure(figsize=(10,6))
+    sns.scatterplot(x='depth', y='magnitude', data=df)
+    plt.title('Earthquake Depth vs Magnitude')
+    plt.xlabel('Depth (km)')
+    plt.ylabel('Magnitude')
+    plt.grid(True)
+    plt.show()
+
+# Function to create an interactive map of earthquakes
+def create_earthquake_map(df):
+    # Create a map centered at a specific location
+    earthquake_map = folium.Map(location=[0, 0], zoom_start=2)
+    
+    # Add earthquake locations to the map
+    for index, row in df.iterrows():
+        folium.CircleMarker(
+            location=[row['latitude'], row['longitude']],
+            radius=row['magnitude'] * 2,
+            color='red' if row['magnitude'] >= 5 else 'orange',
+            fill=True,
+            fill_opacity=0.6,
+            popup=f"Location: {row['location']}<br>Magnitude: {row['magnitude']}<br>Depth: {row['depth']} km"
+        ).add_to(earthquake_map)
+    
+    return earthquake_map
+
+# Main script execution
+if __name__ == "__main__":
+    # Define parameters for data collection
+    start_time = "2000-01-01"
+    end_time = datetime.now().strftime("%Y-%m-%d")  # Current date
+    min_magnitude = 4.5
+    
+    # Fetch earthquake data from USGS API
+    features = fetch_earthquake_data(start_time, end_time, min_magnitude)
+    
+    if features:
+        # Preprocess the earthquake data into a DataFrame
+        df_earthquakes = preprocess_earthquake_data(features)
+        
+        # Display basic statistics
+        print(df_earthquakes.describe())
+        
+        # Plot average earthquake magnitude over time
+        plot_magnitude_trend(df_earthquakes)
+        
+        # Plot depth vs magnitude
+        plot_depth_vs_magnitude(df_earthquakes)
+        
+        # Create and save an interactive earthquake map
+        earthquake_map = create_earthquake_map(df_earthquakes)
+        earthquake_map.save("earthquake_map.html")
+        print("Earthquake map saved as 'earthquake_map.html'")
+
