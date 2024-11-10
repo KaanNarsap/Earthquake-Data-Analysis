@@ -69,3 +69,13 @@ This README provides a comprehensive guide to understanding, running, and explor
 
 Test functions: 
 ![image](https://github.com/user-attachments/assets/031e2ff2-fcc5-4405-b14b-530bae2710ec)
+
+Output Maps and Graphs:
+![image](https://github.com/user-attachments/assets/29d5e32a-6bba-434f-a275-b3a030601d5e)
+![image](https://github.com/user-attachments/assets/57e3dc12-a618-4e62-b4d5-030817ed08da)
+![image](https://github.com/user-attachments/assets/3dbcd244-ac06-4932-8819-70f4df9463fa)
+![image](https://github.com/user-attachments/assets/5ebc4ca8-b231-4e4f-b7b9-10774c8eb7ed)
+
+
+
+
