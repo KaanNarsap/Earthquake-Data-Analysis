@@ -4,7 +4,7 @@ import seaborn as sns
 import folium
 from folium.plugins import HeatMap, MarkerCluster
 
-# Function to preprocess the data from CSV
+# Function to preprocess the data from CSV file
 def preprocess_earthquake_data(csv_file):
     
     df = pd.read_csv(csv_file)
