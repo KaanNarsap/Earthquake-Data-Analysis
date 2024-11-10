@@ -65,3 +65,7 @@ Additional Information
 
 This README provides a comprehensive guide to understanding, running, and exploring the outputs of your earthquake data analysis project. Let me know if you’d like to add more details.
 
+
+
+Test functions: 
+![image](https://github.com/user-attachments/assets/031e2ff2-fcc5-4405-b14b-530bae2710ec)
