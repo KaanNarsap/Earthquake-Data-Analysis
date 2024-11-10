@@ -128,3 +128,4 @@ if __name__ == "__main__":
     earthquake_map.save("earthquake_cluster.html")
     print("Earthquake map saved as 'earthquake_cluster.html'")
     
+print(test_changes)
