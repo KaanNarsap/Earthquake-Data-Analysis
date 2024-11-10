@@ -89,6 +89,7 @@ def create_earthquake_map(df):
     
     return earthquake_map
 
+#Main system with all the working functions and plots, CSV file is also located here
 if __name__ == "__main__":
     
     csv_file = r"C:\Users\knars\Downloads\query.csv"  
@@ -115,7 +116,7 @@ if __name__ == "__main__":
     earthquake_map.save("earthquake_cluster.html")
     print("Earthquake map saved as 'earthquake_cluster.html'")
     
-real_data_file = r"C:\Users\knars\Downloads\query.csv"   # Replace with the actual path to your data file
+real_data_file = r"C:\Users\knars\Downloads\query.csv"   
 
 #testing functions -->
 def test_preprocess_earthquake_data():
