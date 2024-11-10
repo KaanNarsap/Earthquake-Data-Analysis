@@ -128,4 +128,38 @@ if __name__ == "__main__":
     earthquake_map.save("earthquake_cluster.html")
     print("Earthquake map saved as 'earthquake_cluster.html'")
     
+real_data_file = r"C:\Users\knars\Downloads\query.csv"   # Replace with the actual path to your data file
+
+def test_preprocess_earthquake_data():
+    """Test that data preprocessing works and converts 'time' to datetime format using real data."""
+    df = preprocess_earthquake_data(real_data_file)
+    assert 'time' in df.columns, "Data should contain a 'time' column."
+    assert pd.api.types.is_datetime64_any_dtype(df['time']), "Column 'time' should be in datetime format."
+
+
+def test_plot_magnitude_trend():
+    """Test that magnitude trend plot function does not raise exceptions with real data."""
+    df = preprocess_earthquake_data(real_data_file)
+    try:
+        plot_magnitude_trend(df)
+    except Exception as e:
+        assert False, f"plot_magnitude_trend() raised an exception {e}"
+
+
+def test_plot_depth_vs_magnitude():
+    """Test that depth vs. magnitude plot function does not raise exceptions with real data."""
+    df = preprocess_earthquake_data(real_data_file)
+    try:
+        plot_depth_vs_magnitude(df)
+    except Exception as e:
+        assert False, f"plot_depth_vs_magnitude() raised an exception {e}"
+
+
+def test_create_earthquake_heatmap():
+    """Test that the earthquake heatmap function creates a non-empty heatmap with real data."""
+    df = preprocess_earthquake_data(real_data_file)
+    heatmap = create_earthquake_heatmap(df)
+    assert heatmap is not None, "Heatmap creation should not return None."
+    assert len(heatmap._children) > 0, "Heatmap should contain data points."
+
 print(test_changes)
