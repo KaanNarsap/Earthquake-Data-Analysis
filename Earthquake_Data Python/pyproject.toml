@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "earthquake_data_python"  # Updated to comply with PEP 508
+version = "0.1.0"
+description = "A simple package that does something cool"
+authors = [ 
+    {name = "Kaan", email = "knarsap@tudelft.nl"},
+]
+dependencies = ["matplotlib", "pandas", "seaborn", "folium"]

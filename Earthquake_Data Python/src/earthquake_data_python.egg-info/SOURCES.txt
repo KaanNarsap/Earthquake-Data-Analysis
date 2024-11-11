@@ -1,0 +1,6 @@
+pyproject.toml
+src/earthquake_data_python.egg-info/PKG-INFO
+src/earthquake_data_python.egg-info/SOURCES.txt
+src/earthquake_data_python.egg-info/dependency_links.txt
+src/earthquake_data_python.egg-info/requires.txt
+src/earthquake_data_python.egg-info/top_level.txt
